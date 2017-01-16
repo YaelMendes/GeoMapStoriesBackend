@@ -6,8 +6,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
-import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,10 +22,6 @@ public class StoryController {
 
     @RequestMapping("/all")
     public List<Story> allStories() {
-      /*  return Arrays.asList(
-                new Story("a story -description-  from back", LocalDate.of(1979, 05, 24)),
-                new Story("another story -description-  from back", LocalDate.of(1976, 06, 07)));
-     */
        return storyRepository.findAll();
     }
 
