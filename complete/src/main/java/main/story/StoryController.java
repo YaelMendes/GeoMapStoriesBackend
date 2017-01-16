@@ -1,10 +1,13 @@
 package main.story;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -13,17 +16,29 @@ import java.util.List;
 
 
 @RestController
-//@RequestMapping("/main.story")
+@RequestMapping("/story")
 public class StoryController {
 
-    @RequestMapping("/lol")
-    public String greeting(@RequestParam(value="name", defaultValue="World") String name) {
-        return "looool";
-    }
+    @Autowired
+    private StoryRepository storyRepository;
 
     @RequestMapping("/all")
     public List<Story> allStories() {
-        return Arrays.asList(new Story("descriptionfrom back"));
+      /*  return Arrays.asList(
+                new Story("a story -description-  from back", LocalDate.of(1979, 05, 24)),
+                new Story("another story -description-  from back", LocalDate.of(1976, 06, 07)));
+     */
+       return storyRepository.findAll();
+    }
+
+    @RequestMapping("/one")
+    public String getOne() {
+        return "just a simple text for now";
+    }
+
+    @RequestMapping("/insert")
+    public void insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
+        storyRepository.save(new Story(description, LocalDate.now()));
     }
 
 }

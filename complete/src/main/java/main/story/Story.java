@@ -1,8 +1,12 @@
 package main.story;
 
+import org.springframework.data.annotation.Id;
+
 
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDate;
 
 /**
  * Created by YME on 09.01.2017.
@@ -11,10 +15,15 @@ import lombok.Setter;
 @Setter
 public class Story {
 
-    private String description;
+    @Id
+    public String id;
 
-    public Story(String description) {
+    private String description;
+    private LocalDate begin;
+
+    public Story(String description, LocalDate begin) {
         this.description = description;
+        this.begin = begin;
     }
 
 
@@ -25,11 +34,14 @@ public class Story {
 
         Story story = (Story) o;
 
-        return description != null ? description.equals(story.description) : story.description == null;
+        if (description != null ? !description.equals(story.description) : story.description != null) return false;
+        return begin.equals(story.begin);
     }
 
     @Override
     public int hashCode() {
-        return description != null ? description.hashCode() : 0;
+        int result = description != null ? description.hashCode() : 0;
+        result = 31 * result + begin.hashCode();
+        return result;
     }
 }
