@@ -25,9 +25,14 @@ public class StoryController {
        return storyRepository.findAll();
     }
 
-    @RequestMapping("/one")
-    public String getOne() {
+    @RequestMapping("/text")
+    public String getText() {
         return "just a simple text for now";
+    }
+
+    @RequestMapping("/one")
+    public Story getOne() {
+        return new Story("a short de", LocalDate.now());
     }
 
     @RequestMapping("/insert")
