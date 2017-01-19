@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -15,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/story")
+//@CrossOrigin(origins = "http://localhost:3000/stories", maxAge = 3600)
 public class StoryController {
 
     @Autowired
@@ -22,7 +24,8 @@ public class StoryController {
 
     @RequestMapping("/all")
     public List<Story> allStories() {
-       return storyRepository.findAll();
+        List<Story> all = storyRepository.findAll();
+        return all;
     }
 
     @RequestMapping("/text")
@@ -36,8 +39,13 @@ public class StoryController {
     }
 
     @RequestMapping("/insert")
-    public void insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
-        storyRepository.save(new Story(description, LocalDate.now()));
+    public Story insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
+        Story entity = new Story(description, LocalDate.now());
+
+        entity.setAdresses(Arrays.asList(new Address("geneve"), new Address("toulon")));
+
+        storyRepository.save(entity);
+        return entity;
     }
 
 }

@@ -1,13 +1,12 @@
 package main.story;
 
-import org.springframework.data.annotation.Id;
-
-
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.List;
 
 /**
  * Created by YME on 09.01.2017.
@@ -23,11 +22,13 @@ public class Story {
     private String description;
     private LocalDate begin;
 
+   // @OneToMany
+    private List<Address> adresses;
+
     public Story(String description, LocalDate begin) {
         this.description = description;
         this.begin = begin;
     }
-
 
     @Override
     public boolean equals(Object o) {
