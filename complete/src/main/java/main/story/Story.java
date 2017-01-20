@@ -1,12 +1,16 @@
 package main.story;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * Created by YME on 09.01.2017.
@@ -17,34 +21,19 @@ import java.util.List;
 public class Story {
 
     @Id
-    public String id;
-
+    public ObjectId id;
     private String description;
     private LocalDate begin;
-
-   // @OneToMany
-    private List<Address> adresses;
+    private Address address;
+    private Set<Picture> pictures;
+    @DBRef
+    @JsonManagedReference
+    private Set<Person> persons;
 
     public Story(String description, LocalDate begin) {
         this.description = description;
         this.begin = begin;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Story story = (Story) o;
-
-        if (description != null ? !description.equals(story.description) : story.description != null) return false;
-        return begin.equals(story.begin);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = description != null ? description.hashCode() : 0;
-        result = 31 * result + begin.hashCode();
-        return result;
+        this.pictures = new HashSet<>();
+        this.persons = new HashSet<>();
     }
 }
