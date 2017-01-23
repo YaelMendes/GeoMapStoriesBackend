@@ -10,5 +10,9 @@ import lombok.Setter;
 @Setter
 public class Address {
 
+    public Address(String firstLine) {
+        this.firstLine=firstLine;
+    }
+
     private String firstLine;
 }

@@ -1,22 +1,19 @@
 package main.story;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
-import java.util.Arrays;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by yme on 13.01.2017.
  */
 
-
 @RestController
 @RequestMapping("/story")
-//@CrossOrigin(origins = "http://localhost:3000/stories", maxAge = 3600)
+@CrossOrigin(origins = "http://localhost:3000")
 public class StoryController {
 
     @Autowired
@@ -28,35 +25,45 @@ public class StoryController {
     @Autowired
     private PersonRepository personRepository;
 
-    @RequestMapping("/all")
+    @GetMapping("/all")
     public List<Story> allStories() {
         List<Story> all = storyRepository.findAll();
         return all;
     }
 
-    @RequestMapping("/text")
+    @GetMapping("/text")
     public String getText() {
         return "just a simple text for now";
     }
 
-    @RequestMapping("/one")
+    @GetMapping("/one")
     public Story getOne() {
-        return new Story("a short de", LocalDate.now());
+        return new Story("a short de", new Address("an address"), Date.from(Instant.now()));
     }
 
-    @RequestMapping("/insert")
+    @PostMapping(path="/insert")
+    public Story insertWithBody(@RequestBody Story story) {
+    /*    final Address address = new Address("Paname");
+        story.setAddress(address);*/
+
+        storyRepository.save(story);
+
+        return story;
+    }
+
+    @Deprecated
+    @RequestMapping(path="/insertOLD")
     public Story insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
         // Create Story
-        Story entity = new Story(description, LocalDate.now());
+        Story entity = new Story(description, new Address("a deprecated address"), Date.from(Instant.now()));
 
         // Create address
-        final Address address = new Address();
-        address.setFirstLine("Toulon");
+        final Address address = new Address("Toulon");
         // Add embeddable address to story
         entity.setAddress(address);
 
         // Create pictures
-        final Picture picture1 = new Picture();
+      /*  final Picture picture1 = new Picture();
         picture1.setPath("toto.jpg");
         final Picture picture2 = new Picture();
         picture2.setPath("tata.jpg");
@@ -86,7 +93,7 @@ public class StoryController {
         // Update story with persons persisted
         entity.getPersons().add(person1);
         entity.getPersons().add(person2);
-
+*/
         storyRepository.save(entity);
 
         return entity;
