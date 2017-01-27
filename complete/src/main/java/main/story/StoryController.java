@@ -1,5 +1,6 @@
 package main.story;
 
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/story")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
 public class StoryController {
 
     @Autowired
@@ -31,6 +32,16 @@ public class StoryController {
         return all;
     }
 
+    @GetMapping("/getById/{id}")
+    public Story getById(@PathVariable ObjectId id) {
+        return storyRepository.findById(id);
+    }
+
+    @GetMapping("/getByDescription/{description}")
+    public Story getById(@PathVariable String description) {
+        return storyRepository.findByDescription(description);
+    }
+
     @GetMapping("/text")
     public String getText() {
         return "just a simple text for now";
@@ -41,7 +52,7 @@ public class StoryController {
         return new Story("a short de", new Address("an address"), Date.from(Instant.now()));
     }
 
-    @PostMapping(path="/insert")
+    @PostMapping("/insert")
     public Story insertWithBody(@RequestBody Story story) {
     /*    final Address address = new Address("Paname");
         story.setAddress(address);*/
@@ -52,7 +63,7 @@ public class StoryController {
     }
 
     @Deprecated
-    @RequestMapping(path="/insertOLD")
+    @GetMapping("/insertOLD")
     public Story insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
         // Create Story
         Story entity = new Story(description, new Address("a deprecated address"), Date.from(Instant.now()));
