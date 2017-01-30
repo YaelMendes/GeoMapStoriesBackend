@@ -7,6 +7,7 @@ import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
@@ -21,6 +22,7 @@ public class Story {
     @Id
     public ObjectId id;
 
+    @NotNull
     private String description;
     private Address address;
     private Date begin;
