@@ -54,11 +54,7 @@ public class StoryController {
 
     @PostMapping("/insert")
     public Story insertWithBody(@RequestBody Story story) {
-    /*    final Address address = new Address("Paname");
-        story.setAddress(address);*/
-
         storyRepository.save(story);
-
         return story;
     }
 
@@ -67,11 +63,6 @@ public class StoryController {
     public Story insert(@RequestParam(value="description", defaultValue="descr. default value") String description) {
         // Create Story
         Story entity = new Story(description, new Address("a deprecated address"), Date.from(Instant.now()));
-
-        // Create address
-        final Address address = new Address("Toulon");
-        // Add embeddable address to story
-        entity.setAddress(address);
 
         // Create pictures
       /*  final Picture picture1 = new Picture();
