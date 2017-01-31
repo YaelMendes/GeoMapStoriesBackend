@@ -26,10 +26,14 @@ public class StoryController {
     @Autowired
     private PersonRepository personRepository;
 
+    @GetMapping("/all/count")
+    public long countStories() {
+        return storyRepository.count();
+    }
+
     @GetMapping("/all")
     public List<Story> allStories() {
-        List<Story> all = storyRepository.findAll();
-        return all;
+        return storyRepository.findAll();
     }
 
     @GetMapping("/getById/{id}")
@@ -38,7 +42,7 @@ public class StoryController {
     }
 
     @GetMapping("/getByDescription/{description}")
-    public Story getById(@PathVariable String description) {
+    public List<Story> getById(@PathVariable String description) {
         return storyRepository.findByDescription(description);
     }
 
