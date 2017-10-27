@@ -3,6 +3,7 @@ package main.story;
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
@@ -11,6 +12,18 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @EnableMongoRepositories(basePackages = "main")
 public class MongoConfig extends AbstractMongoConfiguration {
 
+    @Value("${mongo.url}")
+    private String mongoUrl;
+
+    @Value("${mongo.database}")
+    private String mongoDatabase;
+
+    @Value("${mongo.user}")
+    private String user;
+
+    @Value("${mongo.password}")
+    private String password;
+
     @Override
     protected String getDatabaseName() {
         return "nowandhere";
@@ -18,7 +31,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new MongoClient(new MongoClientURI("mongodb://test:test@ds141328.mlab.com:41328/nowandhere"));
+        return new MongoClient(new MongoClientURI("mongodb://test:test@ds141328.mlab.com:41328/" + getDatabaseName()));
     }
 
 }
