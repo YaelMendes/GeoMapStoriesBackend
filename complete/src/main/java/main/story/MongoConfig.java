@@ -15,6 +15,9 @@ public class MongoConfig extends AbstractMongoConfiguration {
     @Value("${mongo.url}")
     private String mongoUrl;
 
+    @Value("${mongo.port}")
+    private String mongoPort;
+
     @Value("${mongo.database}")
     private String mongoDatabase;
 
@@ -31,7 +34,7 @@ public class MongoConfig extends AbstractMongoConfiguration {
 
     @Override
     public Mongo mongo() throws Exception {
-        return new MongoClient(new MongoClientURI("mongodb://test:test@ds141328.mlab.com:41328/" + getDatabaseName()));
+        return new MongoClient(new MongoClientURI("mongodb://"+user+":"+password+"@"+mongoUrl+":"+mongoPort+"/" + getDatabaseName()));
     }
 
 }
