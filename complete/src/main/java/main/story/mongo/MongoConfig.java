@@ -1,4 +1,4 @@
-package main.story;
+package main.story.mongo;
 
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;

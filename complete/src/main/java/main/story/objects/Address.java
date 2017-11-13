@@ -1,4 +1,4 @@
-package main.story;
+package main.story.objects;
 
 import lombok.Getter;
 import lombok.Setter;

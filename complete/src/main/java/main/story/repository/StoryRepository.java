@@ -1,5 +1,6 @@
-package main.story;
+package main.story.repository;
 
+import main.story.objects.Story;
 import org.bson.types.ObjectId;
 import org.springframework.data.mongodb.repository.MongoRepository;
 

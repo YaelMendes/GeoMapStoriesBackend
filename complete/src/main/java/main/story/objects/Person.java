@@ -1,7 +1,6 @@
-package main.story;
+package main.story.objects;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.Setter;
 import org.bson.types.ObjectId;

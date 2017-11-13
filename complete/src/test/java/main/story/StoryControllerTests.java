@@ -1,5 +1,7 @@
 package main.story;
 
+import main.story.objects.Address;
+import main.story.objects.Story;
 import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;

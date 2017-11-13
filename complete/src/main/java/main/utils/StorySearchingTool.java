@@ -1,6 +1,6 @@
 package main.utils;
 
-import main.story.Story;
+import main.story.objects.Story;
 
 import java.util.List;
 import java.util.stream.Collectors;

@@ -1,5 +1,10 @@
-package main.story;
+package main.story.controller;
 
+import main.story.objects.Address;
+import main.story.objects.Story;
+import main.story.repository.PersonRepository;
+import main.story.repository.PictureRepository;
+import main.story.repository.StoryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
