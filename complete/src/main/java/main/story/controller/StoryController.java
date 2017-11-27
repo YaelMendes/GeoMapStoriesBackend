@@ -7,6 +7,7 @@ import main.story.repository.PictureRepository;
 import main.story.repository.StoryRepository;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.Instant;
@@ -18,7 +19,7 @@ import java.util.List;
  */
 
 @RestController
-@RequestMapping("/story")
+@RequestMapping(value = "/story", produces = {MediaType.APPLICATION_JSON_UTF8_VALUE})
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"})
 public class StoryController {
 
@@ -36,7 +37,7 @@ public class StoryController {
         return storyRepository.count();
     }
 
-    @GetMapping("/all")
+    @GetMapping(value = "/all")
     public List<Story> allStories() {
         return storyRepository.findAll();
     }
